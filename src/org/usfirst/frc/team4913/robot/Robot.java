@@ -1,9 +1,10 @@
 package org.usfirst.frc.team4913.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -14,9 +15,10 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	RobotDrive myRobot = new RobotDrive(0, 1);
-	Joystick stick = new Joystick(0);
+	RobotDrive myRobot;
+	XboxController controller;
 	Timer timer = new Timer();
+	Spark motor_1, motor_2;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -24,6 +26,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		controller = new XboxController(0);
+		motor_1 = new Spark(0);
+		motor_2 = new Spark(1);
+		myRobot = new RobotDrive(motor_1, motor_2);
+
 	}
 
 	/**
@@ -54,6 +61,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
+
 	}
 
 	/**
@@ -61,7 +69,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		myRobot.arcadeDrive(stick);
+		myRobot.arcadeDrive(controller);
 	}
 
 	/**
